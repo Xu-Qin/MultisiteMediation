@@ -1,7 +1,7 @@
 % Please edit documentation in R/msmediate.R
 \name{msmediate}
 \alias{msmediate}
-\title{Multilevel Causal Mediation Analysis}
+\title{Multisite Causal Mediation Analysis}
 \usage{
 msmediate(data, y, treatment, mediator, X, site)
 }
@@ -19,10 +19,10 @@ msmediate(data, y, treatment, mediator, X, site)
 \item{site}{The variable name for the site ID (string).}
 }
 \value{
-A list contains the variance estimates of the causal effects including the correlation between the direct and indirect effects across sites ($Random_effects), and the population average effect estimates ($Fixed_effects).
+A list contains the estimates of the between-site variance of direct effect, that of indirect effect, and the correlation between the direct and indirect effects across sites ($Random_effects), and the population average direct and indirect effect estimates along with their hypothesis testing results ($Fixed_effects).
 }
 \description{
-Performs causal mediation analysis in the multilevel setting.
+Performs causal mediation analysis in multisite trials. It is used to estimate both the population average and between-site variance of direct and indirect effects.
 }
 \examples{
 data(sim)

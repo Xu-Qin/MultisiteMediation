@@ -1,6 +1,6 @@
-#' Multilevel Causal Mediation Analysis
+#' Multisite Causal Mediation Analysis
 #'
-#' Performs causal mediation analysis in the multilevel setting.
+#' Performs causal mediation analysis in multisite trials. It is used to estimate both the population average and between-site variance of direct and indirect effects. 
 #'
 #' @param data The data set for analysis.
 #' @param y The name of the outcome variable (string).
@@ -8,7 +8,7 @@
 #' @param mediator The name of the mediator variable (string).
 #' @param X A vector of variable names (string) of pretreatment confounders, which will be included in the propensity score model. For now, the multilevel propensity score model only allows for one random intercept.
 #' @param site The variable name for the site ID (string).
-#' @return A list contains the variance estimates of the causal effects including the correlation between the direct and indirect effects across sites ($Random_effects), and the population average effect estimates ($Fixed_effects).
+#' @return A list contains the estimates of the between-site variance of direct effect, that of indirect effect, and the correlation between the direct and indirect effects across sites ($Random_effects), and the population average direct and indirect effect estimates along with their hypothesis testing results ($Fixed_effects).
 #' @author Xu Qin and Guanglei Hong
 #' @references Qin, X., & Hong, G (in press). A weighting method for assessing between-site heterogeneity in causal mediation mechanism. Journal of Educational and Behavioral Statistics.
 #' @export
@@ -291,9 +291,9 @@ msmediate = function(data, y, treatment, mediator, X, site) {
   return(result)
 }
 
-#' Include Variance Testing for Multilevel Causal Mediation Analysis
+#' Include Variance Testing for Multisite Causal Mediation Analysis
 #'
-#' Besides providing the estimation results as given by the function msmediate(), performs variance testing causal mediation analysis in the multilevel setting.
+#' Performs hypothesis testing for the between-site variance of direct effect and that of indirect effect, besides providing the same output as given by the function msmediate().
 #'
 #' @param data The data set for analysis.
 #' @param y The name of the outcome variable (string).
@@ -301,8 +301,8 @@ msmediate = function(data, y, treatment, mediator, X, site) {
 #' @param mediator The name of the mediator variable (string).
 #' @param X A vector of variable names (string) of pretreatment confounders, which will be included in the propensity score model. For now, the multilevel propensity score model only allows for one random intercept.
 #' @param site The variable name for the site ID (string).
-#' @param npermute The number of permutations for the permutation test. The default value is 200.
-#' @return A list contains the variance estimates of the causal effects including the correlation between the direct and indirect effects across sites ($Random_effects), and the population average effect estimates ($Fixed_effects).
+#' @param npermute The number of permutations for the permutation test. The default value is 200. It may take a long time, depending on the sample size and the length of X.
+#' @return A list contains the hypothesis testing results of the between-site variance of the causal effects, besides the same output as given by the function msmediate().
 #' @author Xu Qin and Guanglei Hong
 #' @references Qin, X., & Hong, G (in press). A weighting method for assessing between-site heterogeneity in causal mediation mechanism. Journal of Educational and Behavioral Statistics.
 #' @export
@@ -595,7 +595,7 @@ vartest.msmediate = function(data, y, treatment, mediator, X, site, npermute = 2
     return(result)
   }
   
-  result = est(data, y, treatment, mediator, X, site)
+  result = suppressWarnings({est(data, y, treatment, mediator, X, site)})
   
   siteID = data$site
   chisq_de_pm = NULL

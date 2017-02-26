@@ -1,7 +1,7 @@
 % Please edit documentation in R/msmediate.R
 \name{vartest.msmediate}
 \alias{vartest.msmediate}
-\title{Include Variance Testing for Multilevel Causal Mediation Analysis}
+\title{Include Variance Testing for Multisite Causal Mediation Analysis}
 \usage{
 vartest.msmediate(data, y, treatment, mediator, X, site, npermute = 200)
 }
@@ -18,13 +18,13 @@ vartest.msmediate(data, y, treatment, mediator, X, site, npermute = 200)
 
 \item{site}{The variable name for the site ID (string).}
 
-\item{npermute}{The number of permutations for the permutation test. The default value is 200.}
+\item{npermute}{The number of permutations for the permutation test. The default value is 200. It may take a long time, depending on the sample size and the length of X.}
 }
 \value{
-A list contains the variance estimates of the causal effects including the correlation between the direct and indirect effects across sites ($Random_effects), and the population average effect estimates ($Fixed_effects).
+A list contains the hypothesis testing results of the between-site variance of the causal effects, besides the same output as given by the function msmediate().
 }
 \description{
-Besides providing the estimation results as given by the function msmediate(), performs variance testing causal mediation analysis in the multilevel setting.
+Performs hypothesis testing for the between-site variance of direct effect and that of indirect effect, besides providing the same output as given by the function msmediate().
 }
 \examples{
 data(sim)
